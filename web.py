@@ -1,6 +1,7 @@
 import gradio as gr
 import openai
 import os
+import subprocess
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -22,6 +23,7 @@ def transcribe(audio):
     )
 
     system_message = response["choices"][0]["message"]["content"]
+    subprocess.call(["say", system_message])
     messages.append({"role": "assistant", "content": system_message})
 
     chat_transcript = ""
